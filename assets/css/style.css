@@ -1,0 +1,33 @@
+/* Base */
+* { box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
+
+/* Dropdown visibility */
+.dropdown-container { position: relative; }
+
+/* Ensure anchors are easy to hit and the dropdown doesn't leave a pointer gap */
+.nav-link, .dropdown-container > a { display: inline-flex; align-items: center; }
+
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	left: 0;
+	/* Slight overlap with trigger to avoid a gap when moving pointer */
+	top: calc(100% - 6px);
+	margin-top: 0; /* override utility classes that add gap */
+	z-index: 50;
+}
+
+/* Show dropdown on hover, focus (keyboard), or when the container has focus-within */
+.dropdown-container:hover .dropdown-menu,
+.dropdown-container:focus-within .dropdown-menu {
+	display: block;
+}
+
+/* Mobile menu animation */
+#mobile-menu { will-change: transform; }
+
+/* Simple prose */
+.prose h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+.prose p { color: #374151; margin-bottom: .75rem; }
