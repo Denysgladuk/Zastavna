@@ -82,20 +82,23 @@ function editArticle() {
 }
 
       // Кнопка "Управління записами" (на головній та сторінці appointment.html)
-      const isHomePage = window.location.pathname === "/" || window.location.pathname.endsWith("index.html");
-      const isAppointmentPage = window.location.pathname.includes("appointment.html");
-      
-      if ((isHomePage || isAppointmentPage) && !document.getElementById("appointments-admin-btn")) {
-        const appointmentsBtn = document.createElement("button");
-        appointmentsBtn.id = "appointments-admin-btn";
-        appointmentsBtn.textContent = "📋 Записи";
-        appointmentsBtn.className =
-          "fixed bottom-24 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition z-40";
-        appointmentsBtn.onclick = () => {
-          window.location.href = "/patients/admin_appointments.html";
-        };
-        document.body.appendChild(appointmentsBtn);
-      }
+const token = localStorage.getItem("authToken");
+if (token) {
+  const isHomePage = window.location.pathname === "/" || window.location.pathname.endsWith("index.html");
+  const isAppointmentPage = window.location.pathname.includes("appointment.html");
+
+  if ((isHomePage || isAppointmentPage) && !document.getElementById("appointments-admin-btn")) {
+    const appointmentsBtn = document.createElement("button");
+    appointmentsBtn.id = "appointments-admin-btn";
+    appointmentsBtn.textContent = "📋 Записи";
+    appointmentsBtn.className =
+      "fixed bottom-24 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition z-40";
+    appointmentsBtn.onclick = () => {
+      window.location.href = "/patients/admin_appointments.html";
+    };
+    document.body.appendChild(appointmentsBtn);
+  }
+}
 
 // --- Видалення новини ---
 async function deleteArticle() {
