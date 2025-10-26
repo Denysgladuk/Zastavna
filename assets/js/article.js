@@ -38,11 +38,13 @@ async function loadArticle() {
   }
 }
 
-function showError(msg) {
-  document.getElementById("article-content").innerHTML = `
-    <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-      <p class="text-red-600">${msg}</p>
-    </div>`;
+function showError(message) {
+  const articleContainer = document.getElementById("article-content");
+  if (articleContainer) {
+    articleContainer.innerHTML = `<p class="text-red-600">${message}</p>`;
+  } else {
+    console.warn("⚠️ showError викликано, але #article-content не знайдено.");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", loadArticle);
