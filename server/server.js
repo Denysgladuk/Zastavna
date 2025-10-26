@@ -193,45 +193,70 @@ app.delete("/api/news/:id", auth, async (req, res) => {
 
 // ================= APPOINTMENTS =================
 app.post("/api/appointments", async (req, res) => {
-  const { full_name, phone, appointment_date, comment = "" } = req.body || {};
+  const { full_name, phone, appointment_date, department = "", comment = "" } = req.body || {};
+
   if (!full_name || !phone || !appointment_date) {
     return bad(res, "full_name, phone, appointment_date are required");
   }
+
   const r = await db.run(
-    "INSERT INTO appointments (full_name, phone, appointment_date, comment) VALUES (?, ?, ?, ?)",
-    full_name.trim(), phone.trim(), appointment_date, comment.trim()
+    `INSERT INTO appointments (full_name, phone, appointment_date, department, comment)
+     VALUES (?, ?, ?, ?, ?)`,
+    full_name.trim(),
+    phone.trim(),
+    appointment_date.trim(),
+    department.trim(),
+    comment.trim()
   );
+
   const row = await db.get("SELECT * FROM appointments WHERE id = ?", r.lastID);
   ok(res, row);
 });
 
 app.get("/api/appointments", auth, async (req, res) => {
   const { status, limit = 100 } = req.query;
+
+  const query = `
+    SELECT id, full_name, phone, department, appointment_date, comment, status, created_at, updated_at
+    FROM appointments
+    ${status ? "WHERE status = ?" : ""}
+    ORDER BY created_at DESC
+    LIMIT ?
+  `;
+
   const rows = await db.all(
-    `SELECT * FROM appointments
-     ${status ? "WHERE status = ?" : ""}
-     ORDER BY created_at DESC
-     LIMIT ?`,
+    query,
     ...(status ? [status, Number(limit)] : [Number(limit)])
   );
+
   ok(res, rows);
 });
 
 app.put("/api/appointments/:id", auth, async (req, res) => {
   const old = await db.get("SELECT * FROM appointments WHERE id = ?", req.params.id);
   if (!old) return bad(res, "Not found", 404);
-  const { full_name, phone, appointment_date, comment, status } = req.body || {};
+
+  const { full_name, phone, appointment_date, department, comment, status } = req.body || {};
+
   await db.run(
     `UPDATE appointments
-     SET full_name=?, phone=?, appointment_date=?, comment=?, status=?, updated_at=CURRENT_TIMESTAMP
-     WHERE id=?`,
+     SET full_name = ?,
+         phone = ?,
+         appointment_date = ?,
+         department = ?,
+         comment = ?,
+         status = ?,
+         updated_at = CURRENT_TIMESTAMP
+     WHERE id = ?`,
     full_name ?? old.full_name,
     phone ?? old.phone,
     appointment_date ?? old.appointment_date,
+    department ?? old.department,
     comment ?? old.comment,
     status ?? old.status,
     req.params.id
   );
+
   const row = await db.get("SELECT * FROM appointments WHERE id = ?", req.params.id);
   ok(res, row);
 });
@@ -241,6 +266,7 @@ app.delete("/api/appointments/:id", auth, async (req, res) => {
   if (!r.changes) return bad(res, "Not found", 404);
   ok(res, { deleted: true });
 });
+
 
 // ================= HEALTH =================
 app.get("/api/health", (req, res) => res.json({ ok: true }));

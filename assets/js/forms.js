@@ -1,10 +1,54 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('appointment-form');
-  const feedback = document.getElementById('form-feedback');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("appointment-form");
+  const feedback = document.getElementById("form-feedback");
+
   if (!form) return;
-  form.addEventListener('submit', (e) => {
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    feedback.innerHTML = '<p class="p-4 bg-green-50 text-green-700 rounded-md font-semibold">Дякуємо! Запит відправлено. Ми зателефонуємо вам найближчим часом.</p>';
-    form.reset();
+
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const department = form.department.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name || !phone || !department) {
+      feedback.textContent = "⚠️ Будь ласка, заповніть усі обов’язкові поля!";
+      feedback.className = "text-red-600 mt-3";
+      return;
+    }
+
+    // Ставимо дату поточного дня
+    const today = new Date().toISOString().split("T")[0];
+
+    const payload = {
+      full_name: name,
+      phone,
+      department,
+      appointment_date: today,
+      comment: message,
+    };
+
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        feedback.innerHTML = "✅ Дякуємо! Запис успішно створено.";
+        feedback.className = "text-green-600 mt-3";
+        form.reset();
+      } else {
+        feedback.textContent = "❌ Помилка: " + (data.message || "невідома причина");
+        feedback.className = "text-red-600 mt-3";
+      }
+    } catch (err) {
+      feedback.textContent = "⚠️ Не вдалося надіслати запит: " + err.message;
+      feedback.className = "text-red-600 mt-3";
+    }
   });
 });
