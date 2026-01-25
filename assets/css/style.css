@@ -13,9 +13,8 @@ body { font-family: 'Inter', sans-serif; }
 	display: none;
 	position: absolute;
 	left: 0;
-	/* Slight overlap with trigger to avoid a gap when moving pointer */
 	top: calc(100% - 6px);
-	margin-top: 0; /* override utility classes that add gap */
+	margin-top: 0;
 	z-index: 50;
 }
 
