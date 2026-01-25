@@ -1,21 +1,66 @@
-    <!DOCTYPE html>
-    <html lang="uk">
-    <head>
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1d4ed8">
 <link rel="icon" href="../assets/img/logo.png" type="image/png">
-<title>Наші лікарі — Заставнівська лікарня</title>
+<title>Наші лікарі – Заставнівська лікарня</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/responsive.css">
-
-    </head>
-    <body class="bg-white text-gray-800 font-inter">
-    <header class="bg-white/90 backdrop-blur shadow-md sticky top-0 z-50">
+<style>
+  .doctor-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .doctor-card:nth-child(1) { animation-delay: 0.05s; }
+  .doctor-card:nth-child(2) { animation-delay: 0.1s; }
+  .doctor-card:nth-child(3) { animation-delay: 0.15s; }
+  .doctor-card:nth-child(4) { animation-delay: 0.2s; }
+  .doctor-card:nth-child(5) { animation-delay: 0.25s; }
+  .doctor-card:nth-child(6) { animation-delay: 0.3s; }
+  .doctor-card:nth-child(7) { animation-delay: 0.35s; }
+  .doctor-card:nth-child(8) { animation-delay: 0.4s; }
+  .doctor-card:nth-child(9) { animation-delay: 0.45s; }
+  .doctor-card:nth-child(10) { animation-delay: 0.5s; }
+  .doctor-card:nth-child(11) { animation-delay: 0.55s; }
+  .doctor-card:nth-child(12) { animation-delay: 0.6s; }
+  
+  .filter-btn {
+    transition: all 0.3s ease;
+  }
+  
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  }
+  
+  .filter-btn.active {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+  
+  .hidden-filter {
+    display: none;
+  }
+</style>
+</head>
+<body class="bg-white text-gray-800 font-inter">
+<header class="bg-white/90 backdrop-blur shadow-md sticky top-0 z-50">
   <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
     <a href="../index.html" class="flex items-center gap-3">
       <img src="../assets/img/logo.png" alt="Логотип" class="h-10 w-10 rounded-full object-cover">
@@ -132,10 +177,658 @@
   </div>
 </header>
 
-    <main class="container mx-auto px-6 py-10">
-    <section class="prose max-w-none"><h1>Наші лікарі</h1><p>Загальний каталог лікарів. Додайте список або картки з фото.</p></section>
-    </main>
-    <footer class="bg-gray-900 text-gray-300 mt-16">
+<main class="container mx-auto px-6 py-10">
+  <!-- Заголовок -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Наші лікарі</h1>
+    <p class="text-lg text-gray-600">Кваліфіковані спеціалісти з багаторічним досвідом роботи</p>
+  </div>
+
+  <!-- Фільтр відділень -->
+  <div class="mb-10">
+    <div class="flex flex-wrap gap-3">
+      <button class="filter-btn active px-6 py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-full font-medium" data-filter="all">
+        Всі відділення
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="admin">
+        Адміністрація
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="gynecology">
+        Акушерсько-гінекологічне
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="infection">
+        Інфекційний контроль
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="anesthesia">
+        Анестезіологія та інтенсивна терапія
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="neurology">
+        Неврологічне
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="polyclinic">
+        Поліклінічне
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="admission">
+        Приймально-діагностичне
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="therapy">
+        Терапевтичне
+      </button>
+      <button class="filter-btn px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-600 hover:text-blue-600" data-filter="surgery">
+        Хірургічне
+      </button>
+    </div>
+  </div>
+
+  <!-- Сітка лікарів -->
+  <div id="doctors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    
+    <!-- АДМІНІСТРАЦІЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admin">
+      <div class="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center">
+        <img src="../assets/img/doctors/placeholder.jpg" alt="Фото лікаря" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-24 h-24 bg-blue-200 rounded-full flex items-center justify-center\'><svg class=\'w-12 h-12 text-blue-500\' fill=\'currentColor\' viewBox=\'0 0 20 20\'><path fill-rule=\'evenodd\' d=\'M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z\' clip-rule=\'evenodd\'/></svg></div>'">
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Прізвище Ім'я По батькові</h3>
+        <p class="text-blue-600 font-medium text-sm mb-2">Посада</p>
+        <span class="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">Адміністрація</span>
+      </div>
+    </div>
+    
+    <!-- ПОЛІКЛІНІЧНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <img src="../assets/img/doctors/placeholder.jpg" alt="Агатій Тетяна Василівна" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center\'><svg class=\'w-12 h-12 text-indigo-500\' fill=\'currentColor\' viewBox=\'0 0 20 20\'><path fill-rule=\'evenodd\' d=\'M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z\' clip-rule=\'evenodd\'/></svg></div>'">
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Агатій Тетяна Василівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-офтальмолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Бузан Марина Іванівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-терапевт другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Данилик Володимир Степанович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-стоматолог</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Качинський Іван Миколайович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-отоларинголог першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Кравчук Олександр Васильович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-хірург вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Крайник Олександр Володимирович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-ортопед-травматолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Крупа Олександр Ярославович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-уролог другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Кучерівський Олександр Дарійович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-акушер-гінеколог першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Міцкан Наталія Петрівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-акушер-гінеколог другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Микитей Наталія Миколаївна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-нарколог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Томко Софія Миколаївна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-невролог дитячий другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Павленко Наталія Олександрівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-акушер-гінеколог другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Процюк Віктор Васильович</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-ортопед-травматолог першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Процюк Орися Миколаївна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-дерматовенеролог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Пужняк Наталія Миколаївна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар УЗД першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Петращук Тетяна Володимирівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-ендокринолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Прокопюк Галина Володимирівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-стоматолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Торська Тетяна Василівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-психіатр</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Хомич Катерина Василівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-невропатолог</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Рижак Оксана Валентинівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-стоматолог</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Симчак Марія Василівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-кардіолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="polyclinic">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-indigo-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-indigo-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-indigo-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Діордійчук Надія Василівна</h3>
+        <p class="text-indigo-600 font-medium text-sm mb-2">Лікар-фізіотерапевт вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs rounded-full">Поліклінічне</span>
+      </div>
+    </div>
+
+    <!-- ПРИЙМАЛЬНО-ДІАГНОСТИЧНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Довголіс Василь Миколайович</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Завідувач відділення, лікар-рентгенолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Чагор Марина Василівна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар-рентгенолог другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Доскальчук Христина Ярославівна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар приймального відділення</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Журат Тетяна Степанівна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар приймального відділення вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Липка Корнелія Петрівна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар УЗД другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Нагорська Ірина Миколаївна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар-рентгенолог другої категорії</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Нищук Катерина Денисівна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар приймального відділення</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="admission">
+      <div class="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-cyan-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-cyan-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Мельник Катерина Василівна</h3>
+        <p class="text-cyan-600 font-medium text-sm mb-2">Лікар приймального відділення</p>
+        <span class="inline-block px-3 py-1 bg-cyan-50 text-cyan-700 text-xs rounded-full">Приймально-діагностичне</span>
+      </div>
+    </div>
+
+    <!-- ТЕРАПЕВТИЧНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="therapy">
+      <div class="aspect-square bg-gradient-to-br from-teal-100 to-teal-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-teal-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-teal-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Шеремета Аліна Григорівна</h3>
+        <p class="text-teal-600 font-medium text-sm mb-2">Завідувач відділення, лікар-терапевт вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs rounded-full">Терапевтичне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="therapy">
+      <div class="aspect-square bg-gradient-to-br from-teal-100 to-teal-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-teal-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-teal-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Русаль Орися Василівна</h3>
+        <p class="text-teal-600 font-medium text-sm mb-2">Лікар-терапевт вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-teal-50 text-teal-700 text-xs rounded-full">Терапевтичне</span>
+      </div>
+    </div>
+
+    <!-- ХІРУРГІЧНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="surgery">
+      <div class="aspect-square bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-orange-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-orange-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Дупешко Ярослав Іванович</h3>
+        <p class="text-orange-600 font-medium text-sm mb-2">Завідувач відділення вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-orange-50 text-orange-700 text-xs rounded-full">Хірургічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="surgery">
+      <div class="aspect-square bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-orange-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-orange-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Боднарюк Богдан Дмитрович</h3>
+        <p class="text-orange-600 font-medium text-sm mb-2">Лікар-хірург вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-orange-50 text-orange-700 text-xs rounded-full">Хірургічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="surgery">
+      <div class="aspect-square bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-orange-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-orange-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Кизима Петро Антонійович</h3>
+        <p class="text-orange-600 font-medium text-sm mb-2">Лікар-ортопед-травматолог</p>
+        <span class="inline-block px-3 py-1 bg-orange-50 text-orange-700 text-xs rounded-full">Хірургічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="surgery">
+      <div class="aspect-square bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-orange-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-orange-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Грабовська Юлія Святославівна</h3>
+        <p class="text-orange-600 font-medium text-sm mb-2">Лікар-хірург</p>
+        <span class="inline-block px-3 py-1 bg-orange-50 text-orange-700 text-xs rounded-full">Хірургічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="surgery">
+      <div class="aspect-square bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-orange-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-orange-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Грабовський Святослав Вацлавович</h3>
+        <p class="text-orange-600 font-medium text-sm mb-2">Лікар-хірург вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-orange-50 text-orange-700 text-xs rounded-full">Хірургічне</span>
+      </div>
+    </div>
+
+    <!-- ВІДДІЛ ІНФЕКЦІЙНОГО КОНТРОЛЮ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="infection">
+      <div class="aspect-square bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center">
+        <img src="../assets/img/doctors/Баранюк Людмила Володимирівна.jpeg" alt="Фото лікаря" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-24 h-24 bg-green-200 rounded-full flex items-center justify-center\'><svg class=\'w-12 h-12 text-green-500\' fill=\'currentColor\' viewBox=\'0 0 20 20\'><path fill-rule=\'evenodd\' d=\'M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z\' clip-rule=\'evenodd\'/></svg></div>'">
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Баранюк Людмила Володимирівна</h3>
+        <p class="text-green-600 font-medium text-sm mb-2">Зав.відділення</p>
+        <span class="inline-block px-3 py-1 bg-green-50 text-green-700 text-xs rounded-full">Інфекційний контроль</span>
+      </div>
+    </div>
+
+    <!-- АНЕСТЕЗІОЛОГІЯ ТА ІНТЕНСИВНА ТЕРАПІЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="anesthesia">
+      <div class="aspect-square bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-red-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-red-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Бойко Андрій Володимирович</h3>
+        <p class="text-red-600 font-medium text-sm mb-2">Лікар-анестезіолог першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full">Анестезіологія</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="anesthesia">
+      <div class="aspect-square bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-red-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-red-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Шеремета Володимир Васильович</h3>
+        <p class="text-red-600 font-medium text-sm mb-2">В.о. завідувача відділення, лікар-анестезіолог вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full">Анестезіологія</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="anesthesia">
+      <div class="aspect-square bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-red-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-red-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Вересоцька Наталія Анатоліївна</h3>
+        <p class="text-red-600 font-medium text-sm mb-2">Лікар-анестезіолог</p>
+        <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full">Анестезіологія</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="anesthesia">
+      <div class="aspect-square bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-red-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-red-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Столяр Вадим Олександрович</h3>
+        <p class="text-red-600 font-medium text-sm mb-2">Лікар-анестезіолог</p>
+        <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full">Анестезіологія</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="anesthesia">
+      <div class="aspect-square bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-red-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-red-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Максимчук Віктор Ілліч</h3>
+        <p class="text-red-600 font-medium text-sm mb-2">Лікар-анестезіолог</p>
+        <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full">Анестезіологія</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="anesthesia">
+      <div class="aspect-square bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-red-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-red-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Попелюк Василь Васильович</h3>
+        <p class="text-red-600 font-medium text-sm mb-2">Лікар-анестезіолог першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full">Анестезіологія</span>
+      </div>
+    </div>
+
+    <!-- НЕВРОЛОГІЧНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="neurology">
+      <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-purple-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-purple-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Павельчук Олена Олександрівна</h3>
+        <p class="text-purple-600 font-medium text-sm mb-2">Завідувачка відділення вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-purple-50 text-purple-700 text-xs rounded-full">Неврологічне</span>
+      </div>
+    </div>
+
+    <!-- ПАЛІАТИВНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="palliative">
+      <div class="aspect-square bg-gradient-to-br from-pink-100 to-pink-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-pink-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-pink-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Кучерівська Оксана Орестівна</h3>
+        <p class="text-pink-600 font-medium text-sm mb-2">Завідувач відділення першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-pink-50 text-pink-700 text-xs rounded-full">Паліативне</span>
+      </div>
+    </div>
+
+    <!-- АКУШЕРСЬКО-ГІНЕКОЛОГІЧНЕ ВІДДІЛЕННЯ -->
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="gynecology">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-rose-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Узінський Станіслав Євгенович</h3>
+        <p class="text-rose-600 font-medium text-sm mb-2">Завідувач відділення вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-rose-50 text-rose-700 text-xs rounded-full">Акушерсько-гінекологічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="gynecology">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-rose-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Халак Сніжана Григорівна</h3>
+        <p class="text-rose-600 font-medium text-sm mb-2">Лікар першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-rose-50 text-rose-700 text-xs rounded-full">Акушерсько-гінекологічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="gynecology">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-rose-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Середюк Ірина Миколаївна</h3>
+        <p class="text-rose-600 font-medium text-sm mb-2">Лікар першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-rose-50 text-rose-700 text-xs rounded-full">Акушерсько-гінекологічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="gynecology">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-rose-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Ратар Валентина Михайлівна</h3>
+        <p class="text-rose-600 font-medium text-sm mb-2">Лікар першої категорії</p>
+        <span class="inline-block px-3 py-1 bg-rose-50 text-rose-700 text-xs rounded-full">Акушерсько-гінекологічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="gynecology">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-rose-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Максимчук Лариса Володимирівна</h3>
+        <p class="text-rose-600 font-medium text-sm mb-2">Лікар</p>
+        <span class="inline-block px-3 py-1 bg-rose-50 text-rose-700 text-xs rounded-full">Акушерсько-гінекологічне</span>
+      </div>
+    </div>
+
+    <div class="doctor-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-department="gynecology">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-50 flex items-center justify-center">
+        <div class='w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center'><svg class='w-12 h-12 text-rose-500' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clip-rule='evenodd'/></svg></div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Чередюк Валентина Іванівна</h3>
+        <p class="text-rose-600 font-medium text-sm mb-2">Лікар вищої категорії</p>
+        <span class="inline-block px-3 py-1 bg-rose-50 text-rose-700 text-xs rounded-full">Акушерсько-гінекологічне</span>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Повідомлення, якщо нічого не знайдено -->
+  <div id="no-results" class="hidden text-center py-16">
+    <svg class="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <h3 class="text-2xl font-bold text-gray-700 mb-2">Лікарів не знайдено</h3>
+    <p class="text-gray-500">Спробуйте вибрати інше відділення</p>
+  </div>
+</main>
+
+<footer class="bg-gray-900 text-gray-300 mt-16">
   <div class="container mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
     <div>
       <h3 class="text-white font-semibold text-lg mb-3">КНП «Заставнівська багатопрофільна лікарня»</h3>
@@ -163,8 +856,57 @@
     © 2025 КНП «Заставнівська багатопрофільна лікарня». Усі права захищено.
   </div>
 </footer>
+
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/navigation.js"></script>
 
-    </body>
-    </html>
+<script>
+// Фільтрація лікарів
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const doctorCards = document.querySelectorAll('.doctor-card');
+  const noResults = document.getElementById('no-results');
+  const doctorsGrid = document.getElementById('doctors-grid');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+      
+      // Оновлюємо активну кнопку
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Фільтруємо картки
+      let visibleCount = 0;
+      
+      doctorCards.forEach(card => {
+        card.style.animation = 'none';
+        
+        if (filter === 'all' || card.getAttribute('data-department') === filter) {
+          card.classList.remove('hidden-filter');
+          visibleCount++;
+          
+          // Перезапускаємо анімацію
+          setTimeout(() => {
+            card.style.animation = '';
+          }, 10);
+        } else {
+          card.classList.add('hidden-filter');
+        }
+      });
+      
+      // Показуємо/ховаємо повідомлення про відсутність результатів
+      if (visibleCount === 0) {
+        doctorsGrid.style.display = 'none';
+        noResults.classList.remove('hidden');
+      } else {
+        doctorsGrid.style.display = 'grid';
+        noResults.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
