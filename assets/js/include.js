@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Function to load HTML content
     function loadComponent(selector, file) {
         const element = document.querySelector(selector);
         if (element) {
@@ -11,8 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(data => {
                     element.innerHTML = data;
                     
-                    // Dispatch event so other scripts know header is loaded
-                    // (Important for your navigation.js to work!)
                     if (selector === '#header-placeholder') {
                         document.dispatchEvent(new Event('headerLoaded'));
                     }
@@ -21,8 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Load Header and Footer
-    // Note: We use absolute paths (starting with /) so this works from any folder
     loadComponent("#header-placeholder", "/components/header.html");
     loadComponent("#footer-placeholder", "/components/footer.html");
 });
