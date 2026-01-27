@@ -67,4 +67,6 @@
   } catch (error) {
     console.error('Navigation highlight error:', error);
   }
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
 })();

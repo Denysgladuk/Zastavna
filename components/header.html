@@ -1,0 +1,71 @@
+<header class="bg-white/90 backdrop-blur shadow-md sticky top-0 z-50">
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/assets/img/logo.png" alt="Логотип" class="h-10 w-10 rounded-full object-cover">
+      <span class="text-xl md:text-2xl font-bold text-blue-700">Заставнівська Лікарня</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-4 text-gray-700 font-medium">
+      <li><a href="/index.html" class="nav-link hover:text-blue-700 py-2 transition-colors">Головна</a></li>
+
+      <li class="group relative dropdown-container">
+        <a href="/about.html" class="nav-link hover:text-blue-700 py-2 transition-colors flex items-center" data-page-group="about">
+          Про нас
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </a>
+        <ul class="dropdown-menu absolute hidden group-hover:block bg-white border border-gray-100 shadow-lg mt-2 rounded-lg py-2 w-56 z-50">
+          <li><a href="/about/general.html" class="block px-4 py-2 hover:bg-gray-100">Загальна інформація</a></li>
+          <li><a href="/about/history.html" class="block px-4 py-2 hover:bg-gray-100">Історія закладу</a></li>
+          <li><a href="/about/management.html" class="block px-4 py-2 hover:bg-gray-100">Адміністрація</a></li>
+          <li><a href="/about/structure.html" class="block px-4 py-2 hover:bg-gray-100">Структура</a></li>
+          <li><a href="/about/documents.html" class="block px-4 py-2 hover:bg-gray-100">Документи</a></li>
+        </ul>
+      </li>
+
+      <li class="group relative dropdown-container">
+        <a href="/services/index.html" class="nav-link hover:text-blue-700 py-2 transition-colors flex items-center" data-page-group="services">
+          Послуги
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </a>
+        <ul class="dropdown-menu absolute hidden group-hover:block bg-white border border-gray-100 shadow-lg mt-2 rounded-lg py-2 w-56 z-50">
+          <li><a href="/services/therapy.html" class="block px-4 py-2 hover:bg-gray-100">Терапія</a></li>
+          <li><a href="/services/surgery.html" class="block px-4 py-2 hover:bg-gray-100">Хірургія</a></li>
+          <li><a href="/services/pediatrics.html" class="block px-4 py-2 hover:bg-gray-100">Педіатрія</a></li>
+          <li><a href="/services/diagnostics.html" class="block px-4 py-2 hover:bg-gray-100">Діагностика</a></li>
+          <li><a href="/services/maternity.html" class="block px-4 py-2 hover:bg-gray-100">Пологове</a></li>
+          <li><a href="/services/laboratory.html" class="block px-4 py-2 hover:bg-gray-100">Лабораторія</a></li>
+        </ul>
+      </li>
+
+      <li class="group relative dropdown-container">
+        <a href="/doctors/index.html" class="nav-link hover:text-blue-700 py-2 transition-colors flex items-center" data-page-group="doctors">
+          Лікарі
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </a>
+        <ul class="dropdown-menu absolute hidden group-hover:block bg-white border border-gray-100 shadow-lg mt-2 rounded-lg py-2 w-56 z-50">
+          <li><a href="/doctors/surgeons.html" class="block px-4 py-2 hover:bg-gray-100">Хірурги</a></li>
+          <li><a href="/doctors/therapists.html" class="block px-4 py-2 hover:bg-gray-100">Терапевти</a></li>
+          <li><a href="/doctors/pediatricians.html" class="block px-4 py-2 hover:bg-gray-100">Педіатри</a></li>
+          <li><a href="/doctors/others.html" class="block px-4 py-2 hover:bg-gray-100">Інші спеціалісти</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/patients/index.html" class="nav-link hover:text-blue-700 py-2 transition-colors">Пацієнтам</a></li>
+      <li><a href="/news/index.html" class="nav-link hover:text-blue-700 py-2 transition-colors">Новини</a></li>
+      <li><a href="/contacts.html" class="nav-link hover:text-blue-700 py-2 transition-colors">Контакти</a></li>
+    </ul>
+
+    <a href="/patients/appointment.html" class="hidden md:inline-block bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">Запис на прийом</a>
+
+    <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+      <svg id="menu-open-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      <svg id="menu-close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 pt-20 overflow-y-auto md:hidden transform -translate-x-full transition-transform">
+    <div class="flex flex-col space-y-2 p-6 text-lg">
+        <a href="/index.html" class="mobile-nav-link px-4 py-3 rounded-md hover:bg-gray-100">Головна</a>
+        </div>
+  </div>
+</header>
